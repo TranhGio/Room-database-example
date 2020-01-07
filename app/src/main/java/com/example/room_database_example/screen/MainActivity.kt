@@ -1,7 +1,8 @@
-package com.example.room_database_example
+package com.example.room_database_example.screen
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.room_database_example.R
 
 class MainActivity : AppCompatActivity() {
 
