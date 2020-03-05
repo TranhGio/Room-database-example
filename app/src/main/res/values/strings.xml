@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Room-database-example</string>
+    <string name="add_a_task">Add a task</string>
+    <string name="edit_a_task">Edit a task</string>
 </resources>
