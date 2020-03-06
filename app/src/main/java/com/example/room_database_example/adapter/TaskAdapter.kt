@@ -8,7 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.room_database_example.R
-import com.example.room_database_example.room.Task
+import com.example.room_database_example.room.entities.Task
 
 class TaskAdapter(val tasks: List<Task>, val context: Context) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {

@@ -18,27 +18,31 @@
 
     <EditText
         android:id="@+id/edtNoteName"
-        android:layout_margin="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="30dp"
         android:hint="Note Name"
         app:layout_constraintTop_toBottomOf="@id/txtTitle" />
 
     <EditText
         android:id="@+id/edtDescription"
-        android:layout_margin="30dp"
-        android:hint="Descriptions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:hint="Descriptions"
         app:layout_constraintTop_toBottomOf="@id/edtNoteName" />
 
     <EditText
         android:id="@+id/edtFinishBy"
-        android:hint="Finish by"
-        android:layout_margin="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="30dp"
+        android:clickable="true"
+        android:cursorVisible="false"
+        android:focusable="false"
+        android:hint="Finish by"
         app:layout_constraintTop_toBottomOf="@id/edtDescription" />
+
     <Button
         android:id="@+id/btnAddNote"
         android:layout_width="wrap_content"
@@ -46,7 +50,7 @@
         android:layout_margin="30dp"
         android:background="@color/cardview_light_background"
         android:text="Add Note"
-        app:layout_constraintTop_toBottomOf="@id/edtFinishBy"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/edtFinishBy" />
 </androidx.constraintlayout.widget.ConstraintLayout>
