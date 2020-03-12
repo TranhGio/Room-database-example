@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 
 @Entity()
 data class Task(
-    @PrimaryKey(autoGenerate = true) var id: String,
-    @ColumnInfo(name = "task_name") var taskName: String,
-    @ColumnInfo(name = "description") var description: String,
-    @ColumnInfo(name = "finish") var finish: String
+    @PrimaryKey(autoGenerate = true) var id: Int?,
+    @ColumnInfo(name = "task_name") var taskName: String? = "",
+    @ColumnInfo(name = "description") var description: String? = "",
+    @ColumnInfo(name = "finish") var finish: String? = ""
 )

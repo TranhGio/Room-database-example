@@ -19,29 +19,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initView()
-        initDatabase()
         supportFragmentManager.beginTransaction()
-            .add(R.id.frmContainer, ListTaskFragment.newInstance()).commit()
+            .add(R.id.frmContainer, ListTaskFragment.newInstance()).addToBackStack(null).commit()
     }
-
-    private fun initDatabase() {
-        roomDatabase = Room.databaseBuilder(this, TaskDatabase::class.java, "TaskApp").build()
-        taskDAO = (roomDatabase as TaskDatabase).taskDAO()
-    }
-
     private fun initView() {
-        getAllTask()
-    }
-
-    private fun getAllTask() {
-        taskDAO.getAllTask()
-    }
-
-    private fun addTask() {
-
-    }
-
-    private fun editTask(taskId: Int) {
-
     }
 }

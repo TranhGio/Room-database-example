@@ -1,20 +1,21 @@
 package com.example.room_database_example.adapter
 
-import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.room_database_example.R
 import com.example.room_database_example.room.entities.Task
 
-class TaskAdapter(val tasks: List<Task>, val context: Context) :
+class TaskAdapter(val tasks: List<Task>) :
     RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
+    internal var onItemClick: (position: Int) -> Unit = {}
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_note, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_note, parent, false)
         return ViewHolder(view)
     }
 
@@ -33,11 +34,7 @@ class TaskAdapter(val tasks: List<Task>, val context: Context) :
             txtTaskName.text = tasks[pos].taskName
             txtDes.text = tasks[pos].description
             txtFinish.text = tasks[pos].finish
-            itemView.setOnClickListener(object : View.OnClickListener {
-                override fun onClick(v: View?) {
-                    Toast.makeText(context, tasks[pos].taskName, Toast.LENGTH_SHORT).show()
-                }
-            })
+            itemView.setOnClickListener { onItemClick.invoke(adapterPosition) }
         }
     }
 }

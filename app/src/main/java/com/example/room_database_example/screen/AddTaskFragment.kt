@@ -13,6 +13,8 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.room_database_example.R
+import com.example.room_database_example.room.dao.TaskDatabase
+import com.example.room_database_example.room.entities.Task
 import kotlinx.android.synthetic.main.fragment_add_task.*
 import java.util.*
 
@@ -74,6 +76,25 @@ class AddTaskFragment : Fragment() {
                     Toast.makeText(this, "Not support", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+        btnAddNote.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                addTask()
+            }
+        })
+    }
+
+    fun addTask() {
+        val task = Task(
+            id = null,
+            taskName = edtNoteName.text.toString(),
+            description = edtDescription.text.toString(),
+            finish = edtFinishBy.text.toString()
+        )
+        context?.apply {
+            var db = TaskDatabase.getDatabase(this).taskDAO().addTask(task)
+            Toast.makeText(this, "Add success", Toast.LENGTH_SHORT).show()
+            fragmentManager?.popBackStack()
         }
     }
 }
