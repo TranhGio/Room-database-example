@@ -1,5 +1,6 @@
 package com.example.room_database_example.screen
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,18 +16,28 @@ class EditTaskFragment : Fragment() {
     companion object {
 
         private const val EDIT_ITEM_POSITION = "edit_item_position"
+        private const val OPEN_TYPE = "open_type"
         private var position = -1
 
         @JvmStatic
-        fun newInstance(position: Int) = EditTaskFragment().apply {
-            arguments = Bundle().apply { putInt(EDIT_ITEM_POSITION, position) }
+        fun newInstance(position: Int, isEdit: Boolean) = EditTaskFragment().apply {
+            arguments = Bundle().apply {
+                putInt(EDIT_ITEM_POSITION, position)
+                putBoolean(OPEN_TYPE, isEdit)
+            }
         }
     }
+
+    private var isEdit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             position = it.getInt(EDIT_ITEM_POSITION, -1)
+            isEdit = it.getBoolean(OPEN_TYPE, false)
+        }
+        if (position == -1) {
+            context?.let { Dialog(it) }
         }
     }
 
@@ -43,14 +54,20 @@ class EditTaskFragment : Fragment() {
         if (position != -1) {
             val db = context?.let { TaskDatabase.getDatabase(it).taskDAO() }
             val task = db?.getTask(position)
-            bindData(task)
+            refreshData(task)
+        }
+        btnAddNote.setOnClickListener {
+//            context?.let { it1 -> TaskDatabase.getDatabase(it1).taskDAO().updateTask(task) }
         }
     }
 
-    private fun bindData(task: Task?) {
+    private fun refreshData(task: Task?) {
         edtNoteName.setText(task?.taskName)
-        edtNoteName.setText(task?.description.toString())
-        edtNoteName.setText(task?.finish)
-
+        edtDescription.setText(task?.description.toString())
+        edtFinishBy.setText(task?.finish)
+            edtNoteName.isEnabled = isEdit
+            edtDescription.isEnabled = isEdit
+            edtFinishBy.isEnabled = isEdit
+            btnAddNote.isEnabled = isEdit
     }
 }

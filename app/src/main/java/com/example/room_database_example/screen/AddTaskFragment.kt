@@ -13,6 +13,7 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.room_database_example.R
+import com.example.room_database_example.bus.RxBus
 import com.example.room_database_example.room.dao.TaskDatabase
 import com.example.room_database_example.room.entities.Task
 import kotlinx.android.synthetic.main.fragment_add_task.*
@@ -77,11 +78,7 @@ class AddTaskFragment : Fragment() {
                 }
             }
         }
-        btnAddNote.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {
-                addTask()
-            }
-        })
+        btnAddNote.setOnClickListener { addTask() }
     }
 
     fun addTask() {
@@ -91,6 +88,7 @@ class AddTaskFragment : Fragment() {
             description = edtDescription.text.toString(),
             finish = edtFinishBy.text.toString()
         )
+        RxBus.publish(task)
         context?.apply {
             var db = TaskDatabase.getDatabase(this).taskDAO().addTask(task)
             Toast.makeText(this, "Add success", Toast.LENGTH_SHORT).show()
