@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.room_database_example.R
 import com.example.room_database_example.adapter.TaskAdapter
+import com.example.room_database_example.bus.RxBus
 import com.example.room_database_example.room.dao.TaskDatabase
 import com.example.room_database_example.room.entities.Task
 import kotlinx.android.synthetic.main.fragment_list_task.*
@@ -27,7 +28,11 @@ class ListTaskFragment : Fragment() {
         taskList = ArrayList()
         adapter = TaskAdapter(taskList)
         adapter.onItemClick = {
-            EditTaskFragment.newInstance(it)
+            fragmentManager?.beginTransaction()?.replace(
+                R.id.frmContainer,
+                EditTaskFragment.newInstance(it, false),
+                EditTaskFragment::class.java.simpleName
+            )?.addToBackStack(null)?.commit()
         }
     }
 
@@ -52,11 +57,10 @@ class ListTaskFragment : Fragment() {
                 ).addToBackStack(AddTaskFragment::class.java.simpleName).commit()
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
         refreshAllTask()
+        RxBus.listen(Task::class.java).subscribe {
+            refreshAllTask()
+        }
     }
 
     private fun refreshAllTask() {
